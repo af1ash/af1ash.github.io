@@ -99,5 +99,5 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/af1ash/af1ash.github.io.git
+  repo: https://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@github.com/af1ash/af1ash.github.io.git
   branch: master
