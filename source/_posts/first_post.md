@@ -11,3 +11,4 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 更新第一篇文章内容。
 
 
+新增favicon.jpg
