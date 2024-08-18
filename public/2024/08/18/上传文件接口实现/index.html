@@ -1,107 +1,111 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>文件上传的不同种实现 | </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="基于Fastapi实现三种不同的文件上传接口 第一种是基于Form将文件全部读取成byte传输到服务端，客户端请求需要包装报文。 第二种是基于Form使用UploadFile类实现，调用时需要创建文件对象，不需要读取整个文件，服务端可以得到文件名称等原始信息。客户端请求需要包装报文。 第三种是不使用Form，请求的body为上传文件的字节码，接口实现需要以request为参数，手动获取body内容">
-<meta property="og:type" content="article">
+<html lang="en">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>文件上传的不同种实现</title>
+<meta name="keywords" content="文件上传的不同种实现, ">
+<meta name="description" content="基于Fastapi实现三种不同的文件上传接口
+第一种是基于Form将文件全部读取成byte传输到服务端，客户端请求需要包装报文。
+第二种是基于Form使用UploadFile类实现，调用时需要创建文件对象，不需要读取整个文件，服务端可以得到">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="文件上传的不同种实现">
-<meta property="og:url" content="http://af1ash.github.io/2024/08/18/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="基于Fastapi实现三种不同的文件上传接口 第一种是基于Form将文件全部读取成byte传输到服务端，客户端请求需要包装报文。 第二种是基于Form使用UploadFile类实现，调用时需要创建文件对象，不需要读取整个文件，服务端可以得到文件名称等原始信息。客户端请求需要包装报文。 第三种是不使用Form，请求的body为上传文件的字节码，接口实现需要以request为参数，手动获取body内容">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-18T05:09:24.366Z">
-<meta property="article:modified_time" content="2024-08-18T05:10:41.065Z">
-<meta property="article:author" content="Af1ash">
-<meta property="article:tag" content="http">
-<meta property="article:tag" content="fastapi">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta property="og:description" content="基于Fastapi实现三种不同的文件上传接口
+第一种是基于Form将文件全部读取成byte传输到服务端，客户端请求需要包装报文。
+第二种是基于Form使用UploadFile类实现，调用时需要创建文件对象，不需要读取整个文件，服务端可以得到">
 
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://af1ash.github.io">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://af1ash.github.io">
+        <h1 class="site-title"></h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
   
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo"></a>
-      </h1>
+
+  <div class="content-container">
+    <div class="post-detail">
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+      <h2 class="post-title">文件上传的不同种实现</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-08-18</span>
         
-          <a class="main-nav-link" href="/">Home</a>
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/http/">
+              http
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/fastapi/">
+              fastapi
+                
+              </a>
+            
+          </span>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://af1ash.github.io"></form>
       </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-上传文件接口实现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/08/18/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" class="article-date">
-  <time class="dt-published" datetime="2024-08-18T05:09:24.366Z" itemprop="datePublished">2024-08-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      文件上传的不同种实现
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>基于Fastapi实现三种不同的文件上传接口</p>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>基于Fastapi实现三种不同的文件上传接口</p>
 <p>第一种是基于Form将文件全部读取成byte传输到服务端，客户端请求需要包装报文。</p>
 <p>第二种是基于Form使用UploadFile类实现，调用时需要创建文件对象，不需要读取整个文件，服务端可以得到文件名称等原始信息。客户端请求需要包装报文。</p>
 <p>第三种是不使用Form，请求的body为上传文件的字节码，接口实现需要以request为参数，手动获取body内容并保存。</p>
@@ -122,136 +126,78 @@
 
 <p>接口调用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_uploadfile_by_body</span>():</span><br><span class="line">    url = <span class="string">&quot;http://127.0.0.1:8000/uploadfile_by_body&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test/cases/1.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        bin_data = f.read()</span><br><span class="line"></span><br><span class="line">    header = &#123;&#125; </span><br><span class="line"></span><br><span class="line">    r = requests.post(url=url, files=bin_data, headers=header)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(r.content)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(r.content)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://af1ash.github.io/2024/08/18/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" data-id="clzz8z2310003n5gsdjsi0dwl" data-title="文件上传的不同种实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fastapi/" rel="tag">fastapi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2024/06/09/django_deploy/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">应用部署</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/deploy/" rel="tag">deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fastapi/" rel="tag">fastapi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/deploy/" style="font-size: 10px;">deploy</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/fastapi/" style="font-size: 10px;">fastapi</a> <a href="/tags/http/" style="font-size: 10px;">http</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/08/18/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/">文件上传的不同种实现</a>
-          </li>
-        
-          <li>
-            <a href="/2024/06/09/django_deploy/">应用部署</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="top-box-text">第一种</span></a></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="top-box-text">第二种</span></a></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D"><span class="top-box-text">第三种</span></a></li></ol>
+        </div>
+          
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2024 Af1ash<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/06/09/django_deploy/">
+          <h3 class="post-title">
+            下一篇：应用部署
+          </h3>
+        </a>
+      </div>
+    
   </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
 </footer>
 
+
+      </div>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
+<script src="/js/main.js"></script>
 
 
 
 
 
-  </div>
-</body>
+
+  </body>
 </html>
+
