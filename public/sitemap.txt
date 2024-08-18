@@ -1,3 +1,4 @@
+http://af1ash.github.io/tags/index.html
 http://af1ash.github.io/2024/06/09/django_deploy/
 http://af1ash.github.io/
 http://af1ash.github.io/tags/deploy/
