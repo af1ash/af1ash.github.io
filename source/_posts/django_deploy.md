@@ -1,5 +1,5 @@
 ---
-title: 应用部署
+title: Django应用动静分离部署实现
 tags: 
   - deploy
   - django
