@@ -1,0 +1,24 @@
+# Stellar 2.0.0：其余设置继承主题默认配置。
+leftbar:
+  brand:
+    name: Af1ash
+    image:
+      src: /images/avatar.jpg
+      variant: avatar
+  menu:
+    - id: post
+      title: menu.blog
+      icon: default:documents
+      url: /
+    - id: categories
+      title: menu.categories
+      icon: default:category
+      url: /categories/
+    - id: tags
+      title: menu.tags
+      icon: default:hashtag
+      url: /tags/
+    - id: archives
+      title: menu.archives
+      icon: default:calendar
+      url: /archives/
