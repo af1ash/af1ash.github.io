@@ -22,3 +22,20 @@ leftbar:
       title: menu.archives
       icon: default:calendar
       url: /archives/
+
+comments:
+  provider: giscus
+  giscus:
+    js: https://giscus.app/client.js
+    data-repo: af1ash/af1ash.github.io
+    data-repo-id: 'MDEwOlJlcG9zaXRvcnkyMzkwNjk5MzY='
+    data-category: Announcements
+    data-category-id: DIC_kwDODj_q8M4DMAi3
+    data-mapping: pathname
+    data-strict: 0
+    data-reactions-enabled: 1
+    data-emit-metadata: 0
+    data-input-position: bottom
+    data-theme: preferred_color_scheme
+    data-lang: zh-CN
+    crossorigin: anonymous
