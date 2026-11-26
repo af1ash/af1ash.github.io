@@ -24,3 +24,18 @@ npm run build
 GitHub Actions 使用 Node.js 22，通过 `npm ci` 安装锁定依赖并部署 GitHub Pages。
 
 主题文档：https://xaoxuu.com/wiki/stellar/
+
+## 文章日期
+
+文章 Front Matter 必须填写 `date`，避免 GitHub Actions 使用检出当天的文件时间。
+`npm exec hexo new "文章标题"` 会自动填写发布日期。
+
+```yaml
+---
+title: 文章标题
+date: 2024-06-09 11:28:22
+updated: 2026-11-26 17:00:00
+---
+```
+
+`updated` 可选，实际修改文章时手动填写；省略时沿用发布日期。时间采用 Asia/Shanghai。

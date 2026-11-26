@@ -84,7 +84,8 @@ meta_generator: true
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
-updated_option: 'mtime'
+# 未显式填写 updated 时使用发布日期，避免 CI 检出时间影响文章日期。
+updated_option: 'date'
 
 # Pagination
 ## Set per_page to 0 to disable pagination

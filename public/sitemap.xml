@@ -2,27 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://af1ash.github.io/2024/06/09/django_deploy/</loc>
+    <loc>http://af1ash.github.io/2024/09/07/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/</loc>
     
-    <lastmod>2026-11-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://af1ash.github.io/categories/</loc>
-    
-    <lastmod>2026-11-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://af1ash.github.io/tags/</loc>
-    
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2024-09-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,16 +13,34 @@
   <url>
     <loc>http://af1ash.github.io/2024/08/18/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/</loc>
     
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2024-08-18</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://af1ash.github.io/2024/09/07/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/</loc>
+    <loc>http://af1ash.github.io/categories/</loc>
     
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2024-08-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://af1ash.github.io/tags/</loc>
+    
+    <lastmod>2024-08-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://af1ash.github.io/2024/06/09/django_deploy/</loc>
+    
+    <lastmod>2024-06-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

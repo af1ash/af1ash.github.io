@@ -1,5 +1,6 @@
 ---
 title: Django应用动静分离部署实现
+date: 2024-06-09 11:28:22
 tags: 
   - deploy
   - django
