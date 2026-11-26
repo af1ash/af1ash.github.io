@@ -25,6 +25,68 @@ GitHub Actions 使用 Node.js 22，通过 `npm ci` 安装锁定依赖并部署 G
 
 主题文档：https://xaoxuu.com/wiki/stellar/
 
+## 添加文章
+
+以下命令均在项目根目录执行。
+
+1. 创建文章，建议使用英文文件名，便于保持链接简洁：
+
+   ```sh
+   npx hexo new post "my-new-post"
+   ```
+
+   会生成 `source/_posts/my-new-post.md`，并自动填写发布日期。
+
+2. 编辑生成的 Markdown 文件，将 `title` 改为实际标题，在 Front Matter 下方编写正文：
+
+   ```markdown
+   ---
+   title: 我的新文章
+   date: 2026-11-26 18:00:00
+   tags:
+     - Python
+   categories:
+     - 技术笔记
+   ---
+
+   这里是文章正文。
+
+   ## 小节标题
+
+   使用 Markdown 编写内容。
+   ```
+
+   保留命令生成的 `date`；上面的日期仅为示例。`tags` 和 `categories` 可按需填写。
+   如需插图，可将图片放入 `source/images/`，在正文中使用 `![图片说明](/images/example.png)` 引用。
+
+3. 启动本地预览：
+
+   ```sh
+   npm run server
+   ```
+
+   打开 http://localhost:4000/ 检查文章，按 `Ctrl+C` 停止服务。
+
+4. 构建并确认没有报错：
+
+   ```sh
+   npm run clean
+   npm run build
+   ```
+
+5. 提交文章和引用的图片，再推送到 `master`：
+
+   ```sh
+   git add source/_posts/my-new-post.md
+   # 如果新增了图片，也需要暂存对应文件：
+   # git add source/images/example.png
+   git commit -m "docs: 添加我的新文章"
+   git push origin master
+   ```
+
+   GitHub 仓库的 Actions 页面中，等待 `Pages` 工作流成功后，访问 https://af1ash.github.io/ 查看文章。
+   发布由 GitHub Actions 自动构建完成，无需手动运行 `hexo deploy`。
+
 ## 文章日期
 
 文章 Front Matter 必须填写 `date`，避免 GitHub Actions 使用检出当天的文件时间。
